@@ -4,7 +4,7 @@ mk1pass
 ********************************
 
 | mk1pass created by MikeTurkey
-| Version 0.0.1, 14 Nov 2023
+| Version 0.0.2, 20 Nov 2023
 | 2023, COPYRIGHT MikeTurkey, All Right Reserved.
 | ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.
 | URL: https://miketurkey.com
