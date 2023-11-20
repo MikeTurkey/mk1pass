@@ -1,0 +1,10 @@
+
+##### History of mk1pass ##### 
+
+Ver 0.0.2, 20 Nov 2023
+  Do not print mk1pass --version on pypi module.
+  Add CHECKSUM-SHA3-256.py on pypi module.
+  A few bug fix.
+
+Ver 0.0.1, 19 Nov 2023
+  Initial version.
