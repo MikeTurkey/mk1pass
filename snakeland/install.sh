@@ -1,9 +1,11 @@
-#!/usr/bin/env python3.9
-# -*- coding: utf-8 -*-
-# mk1pass, Generate random strings for passwords.
-# Copyright (C) 2023 Mike Turkey All rights reserved.
+#!/bin/sh
+######################################################################
+####################  SOFTWARE LICENSE   #############################
+######################################################################
+#
+# SNAKELAND, Instant python script installer.
+# Copyright (C) 2023 Takaaki Watanabe as Mike Turkey
 # contact: voice[ATmark]miketurkey.com
-# license: GPLv3 License
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,10 +38,12 @@
 # permission from the copyright holder.
 #
 # see also 
-#     GPL-3 Licence: https://www.gnu.org/licenses/gpl-3.0.html.en
-#     Mike Turkey.com: https://miketurkey.com/
+#     GPL-3 Licence, https://www.gnu.org/licenses/gpl-3.0.html.en
+#     Mike Turkey.com, https://miketurkey.com
+#
 
-from .printdv import print_err, print_mes
-from .mk1pass import main_mk1pass, Main_mk1pass
-__version__ = Main_mk1pass.version
-__versiondate__ = Main_mk1pass.date
+T=$(dirname "$0")
+SCRDIR=$(cd "$T"; pwd)
+INSTALL="$SCRDIR"/script/install-snakeland.sh
+exec "$INSTALL"
+

@@ -40,7 +40,6 @@
 #     Mike Turkey.com: https://miketurkey.com/
 
 from .mk1pass import main_mk1pass
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main_mk1pass()
     exit(0)

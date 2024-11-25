@@ -45,18 +45,18 @@ import unicodedata
 
 class Print_Derivative(object):
     @staticmethod
-    def print_stderr(*mes, end="\n", pyexit: int = 0):
+    def print_stderr(*mes, end='\n', pyexit: int = 0):
         meses: list[str] = []
-        meses = [unicodedata.normalize("NFD", s) for s in mes]
+        meses = [unicodedata.normalize('NFD', s) for s in mes]
         [print(s, file=sys.stderr, end=end) for s in meses]
         if pyexit != 0:
             exit(pyexit)
         return
 
     @staticmethod
-    def print_stdout(*mes, end="\n", file=sys.stdout):
+    def print_stdout(*mes, end='\n', file=sys.stdout):
         meses: list[str] = []
-        meses = [unicodedata.normalize("NFD", s) for s in mes]
+        meses = [unicodedata.normalize('NFD', s) for s in mes]
         [print(s, file=file, end=end) for s in meses]
         return
 

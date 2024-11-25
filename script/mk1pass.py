@@ -39,14 +39,21 @@
 #     GPL-3 Licence: https://www.gnu.org/licenses/gpl-3.0.html.en
 #     Mike Turkey.com: https://miketurkey.com/
 
+import random
+import string
+import hashlib
+import warnings
+import re
+import time
+import os
+import unicodedata
 import sys
 
 
 def printerror_python3x(major, minor):
     if sys.version_info.major == major and sys.version_info.minor < minor:
-        errmes = "Error: Need python {0}.{1} later. [python: {2}]".format(
-            major, minor, sys.version.split(" ")[0]
-        )
+        errmes = 'Error: Need python {0}.{1} later. [python: {2}]'.format(
+            major, minor, sys.version.split(' ')[0])
         print(errmes, file=sys.stderr)
         exit(1)
 
@@ -54,34 +61,21 @@ def printerror_python3x(major, minor):
 printerror_python3x(3, 6)
 if sys.version_info.major == 3 and sys.version_info.minor >= 5:
     import typing
-import os
-import time
-import re
-import warnings
-import hashlib
-import string
-import random
-import unicodedata
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     from printdv import print_err, print_mes
+else:
+    from .printdv import print_err, print_mes
 
 
 class Lpyk(object):
     @staticmethod
-    def randomstrings(
-        total_len: int,
-        letters: str = string.ascii_letters + string.digits,
-        prefix: str = "",
-        suffix: str = "",
-    ) -> str:
-        randomstring_len = total_len - len(prefix) - len(suffix)
+    def randomstrings(total_len: int, letters: str = string.ascii_letters+string.digits, prefix: str = '', suffix: str = '') -> str:
+        randomstring_len = total_len-len(prefix)-len(suffix)
         if randomstring_len <= 0:
             raise ValueError(
-                '"total_len - length of prefix and suffix" is smaller than 1.'
-            )
-        ret = "".join([random.choice(letters) for i in range(randomstring_len)])
-        return prefix + ret + suffix
+                '"total_len - length of prefix and suffix" is smaller than 1.')
+        ret = ''.join([random.choice(letters)for i in range(randomstring_len)])
+        return prefix+ret+suffix
 
 
 class Args_mk1pass(object):
@@ -92,8 +86,8 @@ class Args_mk1pass(object):
         self.numeric: bool = False
         self.count: int = 1
         self.avoid: bool = False
-        self.prefix: str = ""
-        self.suffix: str = ""
+        self.prefix: str = ''
+        self.suffix: str = ''
         self.version: bool = False
         self.help: bool = False
         self.license: bool = False
@@ -105,22 +99,22 @@ class Args_mk1pass(object):
         return
 
     def _str2int(self, s: str) -> int:
-        errmes: str = ""
+        errmes: str = ''
         i: int = 0
         if isinstance(s, str) != True:
-            errmes = "s is not string type."
+            errmes = 's is not string type.'
             raise TypeError(errmes)
         try:
             i = int(s)
         except:
-            errmes = "Error: Not numeric string. [{0}]".format(i)
+            errmes = 'Error: Not numeric string. [{0}]'.format(i)
             print_err(errmes)
             exit(1)
         return i
 
     def print_attribute(self):
         for k, v in self.__dict__.items():
-            mes = "{0}= {1}".format(k, v)
+            mes = '{0}= {1}'.format(k, v)
             print(mes)
         return
 
@@ -131,33 +125,33 @@ class Args_mk1pass(object):
         on_suffix: bool = False
         dfletters: bool = True
         for arg in sys.argv[1:]:
-            if arg == "-l" or arg == "--lower":
+            if arg == '-l' or arg == '--lower':
                 self.lower = True
                 dfletters = False
                 continue
-            if arg == "-u" or arg == "--upper":
+            if arg == '-u' or arg == '--upper':
                 self.upper = True
                 dfletters = False
                 continue
-            if arg == "-s" or arg == "--special":
+            if arg == '-s' or arg == '--special':
                 self.special = True
                 dfletters = False
                 continue
-            if arg == "-n" or arg == "--numeric":
+            if arg == '-n' or arg == '--numeric':
                 self.numeric = True
                 dfletters = False
                 continue
-            if arg == "-a" or arg == "--avoid":
+            if arg == '-a' or arg == '--avoid':
                 self.avoid = True
                 dfletters = False
                 continue
-            if arg == "--version":
+            if arg == '--version':
                 self.version = True
                 continue
-            if arg == "-h" or arg == "--help":
+            if arg == '-h' or arg == '--help':
                 self.help = True
                 continue
-            if arg == "--license":
+            if arg == '--license':
                 self.license = True
                 continue
             if on_count:
@@ -172,19 +166,19 @@ class Args_mk1pass(object):
                 self.suffix = arg
                 on_suffix = False
                 continue
-            if arg == "-c" or arg == "--count":
+            if arg == '-c' or arg == '--count':
                 on_count = True
                 continue
-            if arg == "-e" or arg == "--prefix":
+            if arg == '-e' or arg == '--prefix':
                 on_prefix = True
                 continue
-            if arg == "-f" or arg == "--suffix":
+            if arg == '-f' or arg == '--suffix':
                 on_suffix = True
                 continue
             if self.length == None:
                 self.length = self._str2int(arg)
                 continue
-            errmes = "Error: Invalid argument. [{0}]".format(arg)
+            errmes = 'Error: Invalid argument. [{0}]'.format(arg)
             print_err(errmes)
             exit(1)
         if dfletters:
@@ -195,7 +189,7 @@ class Args_mk1pass(object):
         return
 
     def check(self):
-        errmes: str = ""
+        errmes: str = ''
         length: int = 0
         if self.version:
             Main_mk1pass.show_version()
@@ -206,54 +200,47 @@ class Args_mk1pass(object):
         if self.license:
             Main_mk1pass.show_licence()
             exit(0)
-        if (
-            self.lower != True
-            and self.upper != True
-            and self.special != True
-            and self.numeric != True
-        ):
-            errmes = (
-                "Error: No Charactor option. (--lower, --upper, --numeric, --special)"
-            )
+        if self.lower != True and self.upper != True and self.special != True and self.numeric != True:
+            errmes = 'Error: No Charactor option. (--lower, --upper, --numeric, --special)'
             print_err(errmes)
             exit(1)
         if self.count <= 0:
-            errmes = "Error: count(--count) is NOT positive. [{0}]".format(self.count)
+            errmes = 'Error: count(--count) is NOT positive. [{0}]'.format(
+                self.count)
             print_err(errmes)
             exit(1)
         if self.count >= 4096:
-            errmes = "Error: count(--count) is over the maximum limit. [{0}]".format(
-                self.count
-            )
+            errmes = 'Error: count(--count) is over the maximum limit. [{0}]'.format(
+                self.count)
             print_err(errmes)
             exit(1)
         if self.length == None:
-            errmes = "Error: Empty String length."
+            errmes = 'Error: Empty String length.'
             print_err(errmes)
             exit(1)
         if self.length <= 0:
-            errmes = "Error: String length is NOT positive. [{0}]".format(self.length)
+            errmes = 'Error: String length is NOT positive. [{0}]'.format(
+                self.length)
             print_err(errmes)
             exit(1)
         if self.length >= 1048576:
-            errmes = "Error: String length is over the maximum limit. [{0}]".format(
-                self.length
-            )
+            errmes = 'Error: String length is over the maximum limit. [{0}]'.format(
+                self.length)
             print_err(errmes)
             exit(1)
         if len(self.prefix) >= self.length:
-            errmes = "Error: --prefix length is NOT less than random string length. [{0} >= {1}] "
+            errmes = 'Error: --prefix length is NOT less than random string length. [{0} >= {1}] '
             errmes = errmes.format(len(self.prefix), self.length)
             print_err(errmes)
             exit(1)
         if len(self.suffix) >= self.length:
-            errmes = "Error: --suffix length is NOT less than random string length. [{0} >= {1}] "
+            errmes = 'Error: --suffix length is NOT less than random string length. [{0} >= {1}] '
             errmes = errmes.format(len(self.suffix), self.length)
             print_err(errmes)
             exit(1)
-        length = len(self.prefix) + len(self.suffix)
+        length = len(self.prefix)+len(self.suffix)
         if length >= self.length:
-            errmes = "Error: --prefix and --suffix length is NOT less than random string length. [{0} >= {1}] "
+            errmes = 'Error: --prefix and --suffix length is NOT less than random string length. [{0} >= {1}] '
             errmes = errmes.format(length, self.length)
             print_err(errmes)
             exit(1)
@@ -262,8 +249,8 @@ class Args_mk1pass(object):
 
 
 class Main_mk1pass(object):
-    version: str = "0.0.1dev"
-    date: str = "14 Nov 2023"
+    version: str = '0.0.3'
+    date: str = '25 Nov 2023'
 
     @staticmethod
     def show_version():
@@ -276,58 +263,20 @@ class Main_mk1pass(object):
         mes: str
         scr_version: str = Main_mk1pass.version
         scr_date: str = Main_mk1pass.date
-        scr_fname: str = "mk1pass"
-        meses: list = [
-            "{0} created by MikeTurkey".format(scr_fname),
-            "Version {0}, {1}".format(scr_version, scr_date),
-            "2023, COPYRIGHT MikeTurkey, All Right Reserved.",
-            "ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.",
-            "URL: https://miketurkey.com",
-            "",
-            "Summary",
-            "  Generate random strings for passwords.",
-            "Synopsis",
-            "  mk1pass [-alnsu] [-c COUNT] [-e PREFIX] [-f SUFFIX] [LENGTH] ",
-            "  mk1pass [--version --license [-h | --help]]",
-            "Description",
-            "  -a, --avoid: Avoid misleading letters. (l, I, O, o, 0)",
-            "  -c, --count: Count of random strings.",
-            "  -e, --prefix: Add prefix string to random strings.",
-            "  -f, --suffix: Add suffix string to random strings.",
-            "  -l, --lower: Lowercase strings.",
-            "  -n, --numeric: Numeric strings.",
-            "  -s, --special: Special charactors.",
-            "  -u, --upper: Uppercase strings.",
-            "  -h, --help: Show Help message.",
-            "  --version: Show version.",
-            "  --license: Show License.",
-            "",
-            "e.g.",
-            "  $ mk1pass 8",
-            "    Output 1 row of 8 random strings(--upper, --lower, --numeric, --avoid)",
-            "  $ mk1pass --lower 8",
-            "    Output 1 row of 8 random lowercase strings",
-            "  $ mk1pass --numeric 8",
-            "    Output 1 row of 8 random numeric strings",
-            "  $ mk1pass --lower --upper 8",
-            "    Output 1 row of 8 random lowercase and uppercase strings",
-            "  $ mk1pass --avoid --lower --upper 8",
-            "    Output 1 row of 8 random lowercase and uppercase strings, avoiding mis-leading letter.",
-            "  $ mk1pass -c 10 8",
-            "    Output 10 rows of 8 random strings(--upper, --lower, --numeric, --avoid)",
-            "",
-        ]
-        if scr_fname == "":
+        scr_fname: str = 'mk1pass'
+        meses: list = ['{0} created by MikeTurkey'.format(scr_fname), 'Version {0}, {1}'.format(scr_version, scr_date), '2023, COPYRIGHT MikeTurkey, All Right Reserved.', 'ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.', 'URL: https://miketurkey.com', '', 'Summary', '  Generate random strings for passwords.', 'Synopsis', '  mk1pass [-alnsu] [-c COUNT] [-e PREFIX] [-f SUFFIX] [LENGTH] ', '  mk1pass [--version --license [-h | --help]]', 'Description', '  -a, --avoid: Avoid misleading letters. (l, I, O, o, 0)', '  -c, --count: Count of random strings.', '  -e, --prefix: Add prefix string to random strings.', '  -f, --suffix: Add suffix string to random strings.', '  -l, --lower: Lowercase strings.', '  -n, --numeric: Numeric strings.',
+                       '  -s, --special: Special charactors.', '  -u, --upper: Uppercase strings.', '  -h, --help: Show Help message.', '  --version: Show version.', '  --license: Show License.', '', 'e.g.', '  $ mk1pass 8', '    Output 1 row of 8 random strings(--upper, --lower, --numeric, --avoid)', '  $ mk1pass --lower 8', '    Output 1 row of 8 random lowercase strings', '  $ mk1pass --numeric 8', '    Output 1 row of 8 random numeric strings', '  $ mk1pass --lower --upper 8', '    Output 1 row of 8 random lowercase and uppercase strings', '  $ mk1pass --avoid --lower --upper 8', '    Output 1 row of 8 random lowercase and uppercase strings, avoiding mis-leading letter.', '  $ mk1pass -c 10 8', '    Output 10 rows of 8 random strings(--upper, --lower, --numeric, --avoid)', '']
+        if scr_fname == '':
             raise RuntimeError()
         for mes in meses:
-            mes = unicodedata.normalize("NFD", mes)
+            mes = unicodedata.normalize('NFD', mes)
             print(mes)
         return
 
     @staticmethod
     def show_licence():
         mes: str
-        mes = """mk1pass, Generate random strings for passwords.
+        mes = '''mk1pass, Generate random strings for passwords.
 Copyright (C) 2023 Mike Turkey All rights reserved.
 contact: voice[ATmark]miketurkey.com
 license: GPLv3 License
@@ -356,55 +305,52 @@ machine learning or similar purposes, you must seek explicit written
 permission from the copyright holder.
 see also 
     GPL-3 Licence: https://www.gnu.org/licenses/gpl-3.0.html.en
-    Mike Turkey.com: https://miketurkey.com/ """
+    Mike Turkey.com: https://miketurkey.com/ '''
         print(mes)
         return
 
     @staticmethod
     def randomstring(args: Args_mk1pass) -> str:
-        letters: str = ""
-        special: str = ""
-        errmes: str = ""
-        retstr: str = ""
-        avoid_letters: str = ""
-        special = "!#$%&()*+,-./:;<=>?@[]^_{}~"
-        letters = letters + string.ascii_lowercase if args.lower == True else letters
-        letters = letters + string.ascii_uppercase if args.upper == True else letters
-        letters = letters + string.digits if args.numeric == True else letters
-        letters = letters + special if args.special == True else letters
+        letters: str = ''
+        special: str = ''
+        errmes: str = ''
+        retstr: str = ''
+        avoid_letters: str = ''
+        special = '!#$%&()*+,-./:;<=>?@[]^_{}~'
+        letters = letters+string.ascii_lowercase if args.lower == True else letters
+        letters = letters+string.ascii_uppercase if args.upper == True else letters
+        letters = letters+string.digits if args.numeric == True else letters
+        letters = letters+special if args.special == True else letters
         if args.avoid:
-            avoid_letters = "lIOo0"
+            avoid_letters = 'lIOo0'
             for s in avoid_letters:
-                letters = letters.replace(s, "")
+                letters = letters.replace(s, '')
         if len(letters) == 0:
-            errmes = "Error: Empty letters in ramdomstring() function"
+            errmes = 'Error: Empty letters in ramdomstring() function'
             print_err(errmes)
             exit(1)
         if args.special:
             while True:
                 retstr = Lpyk.randomstrings(
-                    args.length, letters=letters, prefix=args.prefix, suffix=args.suffix
-                )
+                    args.length, letters=letters, prefix=args.prefix, suffix=args.suffix)
                 count_sp = 0
                 for s in special:
                     count_sp += retstr.count(s)
-                if len(retstr) > count_sp * 7:
+                if len(retstr) > count_sp*7:
                     break
         else:
             retstr = Lpyk.randomstrings(
-                args.length, letters=letters, prefix=args.prefix, suffix=args.suffix
-            )
+                args.length, letters=letters, prefix=args.prefix, suffix=args.suffix)
         return retstr
 
 
 def main_mk1pass():
-    errmes: str = ""
+    errmes: str = ''
     s: str
     i: int = 0
     if sys.version_info.major == 3 and sys.version_info.minor < 6:
-        errmes = "Error: python 3.6 later. [python: {0}]".format(
-            sys.version.split(" ")[0]
-        )
+        errmes = 'Error: python 3.6 later. [python: {0}]'.format(
+            sys.version.split(' ')[0])
         print_err(errmes)
         exit(1)
     args: Args_mk1pass = Args_mk1pass()
@@ -416,6 +362,6 @@ def main_mk1pass():
     exit(0)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main_mk1pass()
     exit(0)
