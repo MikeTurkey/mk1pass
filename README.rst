@@ -4,7 +4,7 @@ mk1pass
 ********************************
 
 | mk1pass created by MikeTurkey
-| Version 0.0.3, 25 Nov 2024
+| Version 0.0.4, 25 Nov 2024
 | 2023-2024, COPYRIGHT MikeTurkey, All Right Reserved.
 | ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.
 | URL: https://miketurkey.com
@@ -48,3 +48,30 @@ e.g.
     Output 1 row of 8 random lowercase and uppercase strings, avoiding mis-leading letter.
   $ mk1pass -c 10 8
     Output 10 rows of 8 random strings(--upper, --lower, --numeric, --avoid)
+
+Quick Install(Experimental)
+============================
+
+Install via pypi(python3)
+
+.. code-block:: console
+
+   $ python3 -m pip install mk1pass
+
+Install via github
+
+.. code-block:: console
+
+   $ cd tmp
+   $ git clone https://github.com/MikeTurkey/mk1pass.git
+   $ sudo mk1pass/install.sh
+
+Install via miketurkey.com
+
+.. code-block:: console
+
+  $ curl -O https://miketurkey.com/get-mk1pass.sh
+  $ ./get-mk1pass.sh
+  $ sudo mk1pass/install.sh
+
+  

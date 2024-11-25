@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 # mk1pass, Generate random strings for passwords.
-# Copyright (C) 2023 Mike Turkey All rights reserved.
+# Copyright (C) 2023-2024 Mike Turkey All rights reserved.
 # contact: voice[ATmark]miketurkey.com
 # license: GPLv3 License
 #
@@ -249,7 +249,7 @@ class Args_mk1pass(object):
 
 
 class Main_mk1pass(object):
-    version: str = '0.0.3'
+    version: str = '0.0.4'
     date: str = '25 Nov 2023'
 
     @staticmethod

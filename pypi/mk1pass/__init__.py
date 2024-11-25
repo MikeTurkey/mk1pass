@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 # mk1pass, Generate random strings for passwords.
-# Copyright (C) 2023 Mike Turkey All rights reserved.
+# Copyright (C) 2023-2024 Mike Turkey All rights reserved.
 # contact: voice[ATmark]miketurkey.com
 # license: GPLv3 License
 #

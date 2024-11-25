@@ -3,7 +3,7 @@
 ######################################################################
 
 mk1pass, Generate random strings for passwords.
-Copyright (C) 2023 Takaaki Watanabe as Mike Turkey
+Copyright (C) 2023-2024 Mike Turkey (real name: Takaaki Watanabe)
 contact: voice[ATmark]miketurkey.com
 license: GPLv3 License
 
@@ -45,7 +45,7 @@ see also
 ####################  DOCUMENT LICENSE   #############################
 ######################################################################
 
-Copyright 2023 Takaaki Watanabe as Mike Turkey
+Copyright 2023 Mike Turkey (real name: Takaaki Watanabe)
 contact: voice[ATmark]miketurkey.com
 license: GFDL1.3 License
 

@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# mk1pass, Generate random strings for passwords.
+# Copyright (C) 2023-2024 Mike Turkey
+# contact: voice[ATmark]miketurkey.com
+# license: GPLv3 License
+
 T=$(dirname "$0")
 SCRDIR=$(cd "$T"; pwd)
 CONF="$SCRDIR"/snakeland-mk1pass.conf
