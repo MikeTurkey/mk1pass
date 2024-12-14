@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env python3.9
+# -*- coding: utf-8 -*-
 ######################################################################
 ####################  SOFTWARE LICENSE   #############################
 ######################################################################
 #
 # SNAKELAND, Instant python script installer.
-# Copyright (C) 2023 Takaaki Watanabe as Mike Turkey
+# Copyright (C) 2023-2024 Mike Turkey
 # contact: voice[ATmark]miketurkey.com
 #
 # This program is free software: you can redistribute it and/or modify
@@ -42,37 +43,6 @@
 #     Mike Turkey.com, https://miketurkey.com
 #
 
-T=$(dirname "$0")
-SCRDIR=$(cd "$T"; pwd)
-CONF=
-SNAKELANDPY="$SCRDIR"/snakeland.py
-get_executableabspath(){
-    local _NAME _BINDIR _OPTBINDIR _D
-    _NAME=$1
-    _BINDIR="$(echo "$PATH" | tr ':' ' ')"
-    _OPTBINDIR=/opt/local/bin
-    : ${_BINDIR:='/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin'}
-    if test -d "$_OPTBINDIR" ; then
-	_BINDIR="$_BINDIR /opt/local/bin" ; fi 
-    find $_BINDIR -maxdepth 1 -type f -name "$_NAME" 2> /dev/null | head -n 1
-    return
-}
-find_python3path(){
-    local PNAME PYTHONPATH
-    PNAME="python3"
-    PYTHONPATH=$(get_executableabspath $PNAME)
-    if ! test -z "$PYTHONPATH" ; then
-	echo "$PYTHONPATH"
-	return; fi
-    for N in $(seq 4 29); do
-	PNAME="python3.$N"
-	PYTHONPATH=$(get_executableabspath $PNAME)
-	if ! test -z "$PYTHONPATH" ; then
-	    break; fi
-    done
-    echo "$PYTHONPATH"
-    return
-}
-PYTHON=$(find_python3path)
-exec "$PYTHON" "$SNAKELANDPY" "$@"
-
+from .snakeland import main_snakeland, Main_snakeland
+__version__ = Main_snakeland.version
+__versiondate__ = Main_snakeland.date

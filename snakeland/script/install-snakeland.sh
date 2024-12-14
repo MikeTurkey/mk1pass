@@ -4,7 +4,7 @@
 ######################################################################
 #
 # SNAKELAND, Instant python script installer.
-# Copyright (C) 2023 Takaaki Watanabe as Mike Turkey
+# Copyright (C) 2023-2024 Mike Turkey
 # contact: voice[ATmark]miketurkey.com
 #
 # This program is free software: you can redistribute it and/or modify
@@ -42,36 +42,30 @@
 #     Mike Turkey.com, https://miketurkey.com
 #
 
-
 T=$(dirname "$0")
 SCRDIR=$(cd "$T"; pwd)
 SNAKELANDSH="$SCRDIR"/snakeland.sh
 SNAKELANDPY="$SCRDIR"/snakeland.py
 SNAKELANDMAN=$(cd "$SCRDIR"/../man; pwd)/snakeland.1
+SNAKELANDMANGZ=$(cd "$SCRDIR"/../man; pwd)/snakeland.1.gz
 TARGETDIR=/usr/local/libexec/snakeland/
 TARGETMANDIR=/usr/local/share/man/man1/
 CMDDIR=/usr/local/bin
 CMDNAME=snakeland
-
-### Function ###
 install_cmd(){
     local CDIR CNAME DSTCMD CPATH
     CDIR="$1"
     CNAME="$2"
     DSTCMD="$3"
-
     if ! test -x "$DSTCMD"; then
 	echo 'Error: Not found command.' " [$DSTCMD]" > /dev/stderr
 	exit 1; fi
-    
     CPATH="$(cd "$CDIR"; pwd)"/"$CNAME"
     printf '#!/bin/sh\n'              > "$CPATH"
     printf 'exec %s "$@"\n' "$DSTCMD" >> "$CPATH"
-
     chmod 755 "$CPATH" || exit 1
     return
 }
-
 check_rootuser(){
     local ARGSUSER TMP_USER
     ARGSUSER='root'
@@ -82,37 +76,35 @@ check_rootuser(){
     fi
     return
 }
-
-### Main ###
 check_rootuser
-
 if ! test -d "$TARGETDIR"; then
     if ! mkdir -p "$TARGETDIR"; then
 	echo 'Error: Can not make the directory.' " [$TARGETDIR]" > /dev/stderr
 	exit 1; fi
 fi
-
-for F in "$SNAKELANDSH" "$SNAKELANDPY" "$SNAKELANDMAN"; do
+for F in "$SNAKELANDSH" "$SNAKELANDPY" "$SNAKELANDMAN" "$SNAKELANDMANGZ"; do
     if ! test -r "$F"; then
 	echo 'Error: Not found source file.' " [$F]" > /dev/stderr
 	exit 1; fi
 done
-
 if ! test -d "$TARGETMANDIR"; then
     if ! mkdir -p "$TARGETMANDIR"; then
 	echo 'Error: Can not make man directory.' " [$TARGETMANDIR]"
 	exit 1; fi
 fi
-
 cp -f "$SNAKELANDSH"   "$TARGETDIR" || exit 1
 cp -f "$SNAKELANDPY"   "$TARGETDIR" || exit 1
-cp -f "$SNAKELANDMAN"  "$TARGETMANDIR" || exit 1
-
+case $(uname -s) in
+     'Darwin')
+	 cp -f "$SNAKELANDMAN"  "$TARGETMANDIR" || exit 1
+	 ;;
+     *)
+	 cp -f "$SNAKELANDMANGZ"  "$TARGETMANDIR" || exit 1
+	 ;;
+esac
 F=$(basename "$SNAKELANDSH")
 TARGETCMD="$TARGETDIR"/"$F"
 install_cmd "$CMDDIR" "$CMDNAME" "$TARGETCMD"
-
 echo 'Success: snakeland has been installed.'
 exit 0
-
 

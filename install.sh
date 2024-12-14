@@ -14,7 +14,18 @@ INSTALLSNAKE="$SCRDIR"/snakeland/install.sh
 check_rootuser(){
     local ARGSUSER TMP_USER
     ARGSUSER='root'
-    TMP_USER=$(id -p | grep uid | awk '{print $2}')
+    case "$(uname -s)" in
+	'Darwin' | 'FreeBSD')
+	    TMP_USER=$(id -p | grep uid | awk '{print $2}')
+	    ;;
+	'Linux')
+	    TMP_USER=$(id -u -n)
+	    ;;
+	*)
+	    TMP_USER=$(id -p | grep uid | awk '{print $2}')
+	    ;;
+    esac
+	    
     if [ "$ARGSUSER" != "$TMP_USER" ]; then
         echo 'Error: Not root user.' " [uid: $TMP_USER]"
         exit 1

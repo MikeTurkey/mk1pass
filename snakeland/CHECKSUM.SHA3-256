@@ -1,0 +1,13 @@
+SHA3-256(./man/snakeland.1.gz)= e68f0560445c5dd0edc70d6d6a3b3e138e0ec4e2671d04f19cfc3f7ac8335cac
+SHA3-256(./man/snakeland.1)= 3cf230e308ff456bcd1406d4173a4e4db5d61a7778a672fdbdf92021e6dd0367
+SHA3-256(./pypi/snakeland/__init__.py)= 1650226c6b5fc33d8565ea1db0dd00759959f1947fa88efee43f4e571789b7fc
+SHA3-256(./pypi/snakeland/__main__.py)= dfcb2a704ab590a94193e06f367fbeaa6d1b667d20c31a99e3224a39b92a9b96
+SHA3-256(./LICENSE)= e239791fec418a9e4d83d001b051be76f02c813bcf314037f880f98dad4a4510
+SHA3-256(./Makefile)= 40fb7e3d1c942d60ffab3df3a38008fdf58b9966743b60f537d8bd3638dd66f4
+SHA3-256(./install.sh)= 339d0225e1e8456cf7942e238bbe8c5e1e1841c42525bd6be3f7ac4b02c0f4f5
+SHA3-256(./script/snakeland.sh)= e57a5b3421404c433d1a7dcdd780790c87bfe134f5defe0fe11f2422a157054a
+SHA3-256(./script/install-snakeland.sh)= c0267a41c516094995477b2c609bb423abdfc7a13c65b2fff379adcb9967eb0b
+SHA3-256(./script/snakeland.py)= c639faa5441a6eaed45e8d3ef01cc13ca52cbf3a05ea103425ced34cd8f4aab6
+SHA3-256(./HISTORY)= a55aa375dc0b92f01d242ea52c8303aaf34eed59d896f6f8c28b847618f088dd
+SHA3-256(./README.rst)= d1d694bfa8b63d92abeeae9d6f8563bebc3798465fa4e35e0187c90ae3d82655
+SHA3-256(./LICENSE_snakeland)= df7a5364c89760adafad4c115d40c9c2b8347705dca665da0ff787393630a943

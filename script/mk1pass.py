@@ -69,13 +69,15 @@ else:
 
 class Lpyk(object):
     @staticmethod
-    def randomstrings(total_len: int, letters: str = string.ascii_letters+string.digits, prefix: str = '', suffix: str = '') -> str:
-        randomstring_len = total_len-len(prefix)-len(suffix)
+    def randomstrings(total_len: int, letters: str = string.ascii_letters+string.digits,
+                      prefix: str = '', suffix: str = '') -> str:
+        randomstring_len = total_len - len(prefix) - len(suffix)
         if randomstring_len <= 0:
             raise ValueError(
                 '"total_len - length of prefix and suffix" is smaller than 1.')
-        ret = ''.join([random.choice(letters)for i in range(randomstring_len)])
-        return prefix+ret+suffix
+        ret = ''.join([random.choice(letters)
+                      for i in range(randomstring_len)])
+        return prefix + ret + suffix
 
 
 class Args_mk1pass(object):
@@ -238,7 +240,7 @@ class Args_mk1pass(object):
             errmes = errmes.format(len(self.suffix), self.length)
             print_err(errmes)
             exit(1)
-        length = len(self.prefix)+len(self.suffix)
+        length = len(self.prefix) + len(self.suffix)
         if length >= self.length:
             errmes = 'Error: --prefix and --suffix length is NOT less than random string length. [{0} >= {1}] '
             errmes = errmes.format(length, self.length)
@@ -249,8 +251,8 @@ class Args_mk1pass(object):
 
 
 class Main_mk1pass(object):
-    version: str = '0.0.4'
-    date: str = '25 Nov 2023'
+    version: str = '0.0.5'
+    date: str = '14 Dec 2024'
 
     @staticmethod
     def show_version():
@@ -264,8 +266,44 @@ class Main_mk1pass(object):
         scr_version: str = Main_mk1pass.version
         scr_date: str = Main_mk1pass.date
         scr_fname: str = 'mk1pass'
-        meses: list = ['{0} created by MikeTurkey'.format(scr_fname), 'Version {0}, {1}'.format(scr_version, scr_date), '2023, COPYRIGHT MikeTurkey, All Right Reserved.', 'ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.', 'URL: https://miketurkey.com', '', 'Summary', '  Generate random strings for passwords.', 'Synopsis', '  mk1pass [-alnsu] [-c COUNT] [-e PREFIX] [-f SUFFIX] [LENGTH] ', '  mk1pass [--version --license [-h | --help]]', 'Description', '  -a, --avoid: Avoid misleading letters. (l, I, O, o, 0)', '  -c, --count: Count of random strings.', '  -e, --prefix: Add prefix string to random strings.', '  -f, --suffix: Add suffix string to random strings.', '  -l, --lower: Lowercase strings.', '  -n, --numeric: Numeric strings.',
-                       '  -s, --special: Special charactors.', '  -u, --upper: Uppercase strings.', '  -h, --help: Show Help message.', '  --version: Show version.', '  --license: Show License.', '', 'e.g.', '  $ mk1pass 8', '    Output 1 row of 8 random strings(--upper, --lower, --numeric, --avoid)', '  $ mk1pass --lower 8', '    Output 1 row of 8 random lowercase strings', '  $ mk1pass --numeric 8', '    Output 1 row of 8 random numeric strings', '  $ mk1pass --lower --upper 8', '    Output 1 row of 8 random lowercase and uppercase strings', '  $ mk1pass --avoid --lower --upper 8', '    Output 1 row of 8 random lowercase and uppercase strings, avoiding mis-leading letter.', '  $ mk1pass -c 10 8', '    Output 10 rows of 8 random strings(--upper, --lower, --numeric, --avoid)', '']
+        meses: list = ['{0} created by MikeTurkey'.format(scr_fname),
+                       'Version {0}, {1}'.format(scr_version, scr_date),
+                       '2023, COPYRIGHT MikeTurkey, All Right Reserved.',
+                       'ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.',
+                       'URL: https://miketurkey.com',
+                       '',
+                       'Summary',
+                       '  Generate random strings for passwords.',
+                       'Synopsis',
+                       '  mk1pass [-alnsu] [-c COUNT] [-e PREFIX] [-f SUFFIX] [LENGTH] ',
+                       '  mk1pass [--version --license [-h | --help]]',
+                       'Description',
+                       '  -a, --avoid: Avoid misleading letters. (l, I, O, o, 0)',
+                       '  -c, --count: Count of random strings.',
+                       '  -e, --prefix: Add prefix string to random strings.',
+                       '  -f, --suffix: Add suffix string to random strings.',
+                       '  -l, --lower: Lowercase strings.',
+                       '  -n, --numeric: Numeric strings.',
+                       '  -s, --special: Special charactors.',
+                       '  -u, --upper: Uppercase strings.',
+                       '  -h, --help: Show Help message.',
+                       '  --version: Show version.',
+                       '  --license: Show License.',
+                       '',
+                       'e.g.',
+                       '  $ mk1pass 8',
+                       '    Output 1 row of 8 random strings(--upper, --lower, --numeric, --avoid)',
+                       '  $ mk1pass --lower 8',
+                       '    Output 1 row of 8 random lowercase strings',
+                       '  $ mk1pass --numeric 8',
+                       '    Output 1 row of 8 random numeric strings',
+                       '  $ mk1pass --lower --upper 8',
+                       '    Output 1 row of 8 random lowercase and uppercase strings',
+                       '  $ mk1pass --avoid --lower --upper 8',
+                       '    Output 1 row of 8 random lowercase and uppercase strings, avoiding mis-leading letter.',
+                       '  $ mk1pass -c 10 8',
+                       '    Output 10 rows of 8 random strings(--upper, --lower, --numeric, --avoid)',
+                       '']
         if scr_fname == '':
             raise RuntimeError()
         for mes in meses:
@@ -317,10 +355,10 @@ see also
         retstr: str = ''
         avoid_letters: str = ''
         special = '!#$%&()*+,-./:;<=>?@[]^_{}~'
-        letters = letters+string.ascii_lowercase if args.lower == True else letters
-        letters = letters+string.ascii_uppercase if args.upper == True else letters
-        letters = letters+string.digits if args.numeric == True else letters
-        letters = letters+special if args.special == True else letters
+        letters = letters + string.ascii_lowercase if args.lower == True else letters
+        letters = letters + string.ascii_uppercase if args.upper == True else letters
+        letters = letters + string.digits if args.numeric == True else letters
+        letters = letters + special if args.special == True else letters
         if args.avoid:
             avoid_letters = 'lIOo0'
             for s in avoid_letters:
@@ -336,7 +374,7 @@ see also
                 count_sp = 0
                 for s in special:
                     count_sp += retstr.count(s)
-                if len(retstr) > count_sp*7:
+                if len(retstr) > count_sp * 7:
                     break
         else:
             retstr = Lpyk.randomstrings(

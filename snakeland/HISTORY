@@ -1,0 +1,13 @@
+
+### snakeland history ### 
+
+
+Ver 0.0.2, 26 Nov 2024
+  Faster findpy3 sub command.
+  Delete .dusg files.
+  Add pypi metadata.
+  Update LICENSE a little.
+  install.sh install snakeland.1 or snakeland.1.gz to Mandir. (Experimental)
+
+Ver 0.0.1, 25 Nov 2023
+  initial version

@@ -4,7 +4,7 @@ mk1pass
 ********************************
 
 | mk1pass created by MikeTurkey
-| Version 0.0.4, 25 Nov 2024
+| Version 0.0.5, 14 Dec 2024
 | 2023-2024, COPYRIGHT MikeTurkey, All Right Reserved.
 | ABSOLUTELY NO WARRANTY. The Licence is based on GPLv3 Licence.
 | URL: https://miketurkey.com
@@ -71,7 +71,7 @@ Install via miketurkey.com
 .. code-block:: console
 
   $ curl -O https://miketurkey.com/get-mk1pass.sh
-  $ ./get-mk1pass.sh
+  $ sh get-mk1pass.sh
   $ sudo mk1pass/install.sh
 
   
