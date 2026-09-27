@@ -39,7 +39,7 @@
 #     GPL-3 Licence: https://www.gnu.org/licenses/gpl-3.0.html.en
 #     Mike Turkey.com: https://miketurkey.com/
 
-import random
+import secrets
 import string
 import hashlib
 import warnings
@@ -75,7 +75,7 @@ class Lpyk(object):
         if randomstring_len <= 0:
             raise ValueError(
                 '"total_len - length of prefix and suffix" is smaller than 1.')
-        ret = ''.join([random.choice(letters)
+        ret = ''.join([secrets.choice(letters)
                       for i in range(randomstring_len)])
         return prefix + ret + suffix
 
@@ -109,7 +109,7 @@ class Args_mk1pass(object):
         try:
             i = int(s)
         except:
-            errmes = 'Error: Not numeric string. [{0}]'.format(i)
+            errmes = 'Error: Not numeric string. [{0}]'.format(s)
             print_err(errmes)
             exit(1)
         return i
@@ -204,6 +204,10 @@ class Args_mk1pass(object):
             exit(0)
         if self.lower != True and self.upper != True and self.special != True and self.numeric != True:
             errmes = 'Error: No Charactor option. (--lower, --upper, --numeric, --special)'
+            print_err(errmes)
+            exit(1)
+        if self.special and self.lower != True and self.upper != True and self.numeric != True:
+            errmes = 'Error: --special can not be used alone. Use with --lower, --upper or --numeric.'
             print_err(errmes)
             exit(1)
         if self.count <= 0:
